@@ -33,7 +33,7 @@
 
             bool[,] visited = new bool[numOfRows, numOfColumns];
 
-            // set visited matrices to false;
+            // Set visited matrices to false;
             for (int x = 0; x < visited.GetLength(0); x += 1)
             {
                 for (int y = 0; y < visited.GetLength(1); y += 1)
