@@ -207,11 +207,20 @@
 
             string[,] pathMatrix = new string[matrix.GetLength(0), matrix.GetLength(1)];
 
+            Point goal = new Point();
+
             // Copy matrix param to pathMatrix
-            for (int x = 0; x < pathMatrix.GetLength(0); x += 1)
+            for (int x = 0; x < matrix.GetLength(0); x += 1)
             {
-                for (int y = 0; y < pathMatrix.GetLength(1); y += 1)
+                for (int y = 0; y < matrix.GetLength(1); y += 1)
                 {
+                    int indexG = matrix[x, y].IndexOf("G");
+                    if (indexG != -1)
+                    {
+                        goal.x = x;
+                        goal.y = y;
+                    }
+                      
                     pathMatrix[x,y] = matrix[x, y];
                 }
             }
@@ -228,40 +237,25 @@
                 if (indexS != -1)
                     continue;
 
-                // UP
                 if (next.x - curr.x < 0)
-                {
-                    if(i == Path.Count() - 1) { }
-                        pathMatrix[next.x, next.y] = "↑";
-    
                     pathMatrix[curr.x, curr.y] = "↑";
-                }
-
-                // DOWN
                 if (next.x - curr.x > 0)
-                {
-                    if (i == Path.Count() - 1)
-                        pathMatrix[next.x, next.y] = "↓";
-             
                     pathMatrix[curr.x, curr.y] = "↓";
-                }
-
-                // LEFT
                 if (next.y - curr.y < 0)
-                {
-                    if (i == Path.Count() - 1)
-                        pathMatrix[next.x, next.y] = "←";
-               
                     pathMatrix[curr.x, curr.y] = "←";
-                }
-
-                // RIGHT
                 if (next.y - curr.y > 0) 
+                    pathMatrix[curr.x, curr.y] = "→";
+
+                if (i == Path.Count() - 1)
                 {
-                    if (i == Path.Count() - 1)
+                    if (goal.x - next.x < 0)
+                        pathMatrix[next.x, next.y] = "↑";
+                    if (goal.x - next.x > 0)
+                        pathMatrix[next.x, next.y] = "↓";
+                    if (goal.y - next.y < 0)
+                        pathMatrix[next.x, next.y] = "←";
+                    if (goal.y - next.y > 0)
                         pathMatrix[next.x, next.y] = "→";
-         
-                     pathMatrix[curr.x, curr.y] = "→";
                 }
             }
 
