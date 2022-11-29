@@ -130,6 +130,21 @@ namespace SearchAlgorithm
 
             return neighbors;
         }
-    
+
+        /// <summary>
+        /// Gets the shortest path from the starting point to the ending point
+        /// Backtracking from the goal to the starting point
+        /// </summary>
+        /// <param name="start">Starting point of the maze</param>
+        /// <param name="goal">The Goal that must be reached</param>
+        public void ShortestPath(Point start, Point goal)
+        {
+            Point current = goal;
+            while (current != start)
+            {
+                current = previous[current];
+                path.Add(current);
+            }
+        }
     }
 }
