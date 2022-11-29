@@ -1,4 +1,4 @@
-﻿using BFSMazeSolver = SearchAlgorithm.BFSMazeSolver;
+﻿using SearchAlgorithm;
 
 string[,] matrix = 
         {
