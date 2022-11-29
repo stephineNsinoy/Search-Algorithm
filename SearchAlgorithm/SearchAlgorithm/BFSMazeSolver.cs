@@ -146,5 +146,31 @@ namespace SearchAlgorithm
                 path.Add(current);
             }
         }
+
+        /// <summary>
+        /// Displays the shortest path from start to goal
+        /// </summary>
+        /// <param name="matrix">2d array representation of the maze</param>
+        public void DisplayShortestPath(string[,] matrix)
+        {
+            Path.Reverse();
+
+            string shortestPath = "";
+            int i = 0;
+            foreach (var p in Path)
+            {
+                int indexS = matrix[p.x, p.y].IndexOf('S');
+                if (indexS != -1)
+                    matrix[p.x, p.y] = matrix[p.x, p.y].Replace('S', '\0');
+
+                shortestPath += matrix[p.x, p.y];
+                if (i < Path.Count() - 1)
+                    shortestPath += " → ";
+                i++;
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nPATH: \n" + shortestPath);
+            Console.ResetColor();
+        }
     }
 }
