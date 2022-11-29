@@ -65,8 +65,6 @@
                     }
                 }
             }
-
-            DisplayMaze(matrix);
             return -1;
         }
 

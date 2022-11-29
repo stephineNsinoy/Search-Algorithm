@@ -24,6 +24,7 @@ if(distance != -1)
 }
 else
 {
+    solver.DisplayMaze(matrix);
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("\nGoal can't be reached!\nMaze is impossible to solve");
     Console.ResetColor();   
