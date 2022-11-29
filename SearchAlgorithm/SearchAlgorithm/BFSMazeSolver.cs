@@ -79,7 +79,6 @@
         /// <returns>List of Point(neighbors)</returns>
         private List<Point> FindNeighbors(Point current, int numOfRows, int numOfColumns, string[,] matrix, bool[,] visited)
         {
-
             List<Point> neighbors = new List<Point>();
             Point node;
             
