@@ -16,6 +16,8 @@ BFSMazeSolver solver = new BFSMazeSolver();
 int distance = solver.SolveMaze(matrix);
 if(distance != -1)
 {
+    solver.DisplayMaze(matrix);
+    solver.DisplayPathMaze(matrix);
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"\nGoal reached with distance {distance} from start to goal");
     solver.DisplayShortestPath(matrix);
