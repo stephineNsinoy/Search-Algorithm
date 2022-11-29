@@ -71,7 +71,7 @@
         /// <summary>
         /// Locates neighbors of current point (UP,DOWN,RIGHT,LEFT) neigbhors
         /// </summary>
-        /// <param name="current"> current point(x,y) of matrix with distance</param>
+        /// <param name="current"> Current point(x,y) of matrix with distance</param>
         /// <param name="numOfRows">Number of rows of the matrix</param>
         /// <param name="numOfColumns">Number of columns of the matrix</param>
         /// <param name="matrix">2d array string matrix (maze)</param>
@@ -82,7 +82,7 @@
             List<Point> neighbors = new List<Point>();
             Point node;
             
-            // UP
+            // Up
             if ((current.x - 1 >= 0 && current.x - 1 < numOfRows) && 
                 !visited[current.x - 1, current.y] && 
                 matrix[current.x - 1,current.y] != "▅")
@@ -92,7 +92,7 @@
                 previous.Add(node, current);
             }
 
-            // DOWN
+            // Down
             if ((current.x + 1 >= 0 && current.x + 1 < numOfRows) && 
                 !visited[current.x + 1, current.y] && 
                 matrix[current.x + 1,current.y] != "▅")
@@ -102,7 +102,7 @@
                 previous.Add(node, current);
             }
 
-            // RIGHT
+            // Right
             if ((current.y + 1 >= 0 && current.y + 1 < numOfColumns) &&
                 !visited[current.x, current.y + 1] &&
                 matrix[current.x, current.y + 1] != "▅")
@@ -112,7 +112,7 @@
                 previous.Add(node, current);
             }
 
-            // LEFT
+            // Left
             if ((current.y - 1 >= 0 && current.y - 1 < numOfColumns) && 
                 !visited[current.x, current.y - 1] && 
                 matrix[current.x,current.y - 1] != "▅")
