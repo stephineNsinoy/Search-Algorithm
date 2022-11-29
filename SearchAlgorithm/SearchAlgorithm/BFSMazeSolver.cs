@@ -208,6 +208,7 @@
 
             string[,] pathMatrix = new string[matrix.GetLength(0), matrix.GetLength(1)];
 
+            // Copy matrix param to pathMatrix
             for (int x = 0; x < pathMatrix.GetLength(0); x += 1)
             {
                 for (int y = 0; y < pathMatrix.GetLength(1); y += 1)
@@ -216,6 +217,7 @@
                 }
             }
 
+            // Set up shortest path to matrix with equivalent arrows
             Path.Reverse();
 
             for(int i = 1; i < Path.Count(); i++)
@@ -227,6 +229,7 @@
                 if (indexS != -1)
                     continue;
 
+                // UP
                 if (next.x - curr.x < 0)
                 {
                     if(i == Path.Count() - 1) { }
@@ -234,6 +237,8 @@
     
                     pathMatrix[curr.x, curr.y] = "↑";
                 }
+
+                // DOWN
                 if (next.x - curr.x > 0)
                 {
                     if (i == Path.Count() - 1)
@@ -241,6 +246,8 @@
              
                     pathMatrix[curr.x, curr.y] = "↓";
                 }
+
+                // LEFT
                 if (next.y - curr.y < 0)
                 {
                     if (i == Path.Count() - 1)
@@ -248,6 +255,8 @@
                
                     pathMatrix[curr.x, curr.y] = "←";
                 }
+
+                // RIGHT
                 if (next.y - curr.y > 0) 
                 {
                     if (i == Path.Count() - 1)
@@ -257,11 +266,11 @@
                 }
             }
 
+            // Print Matrix with shortest path
             for (int x = 0; x < pathMatrix.GetLength(0); x += 1)
             {
                 for (int y = 0; y < pathMatrix.GetLength(1); y += 1)
                 {
-
                     int indexS = pathMatrix[x, y].IndexOf("S");
                     int indexG = pathMatrix[x, y].IndexOf("G");
 
