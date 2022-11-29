@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace SearchAlgorithm
+﻿namespace SearchAlgorithm
 {
     public class BFSMazeSolver
     {
@@ -54,7 +52,6 @@ namespace SearchAlgorithm
                 if (index != -1)
                 {
                     ShortestPath(start, current);
-                    DisplayMaze(matrix);
                     return current.shortestPathDistance;
                 }
                 else
@@ -153,8 +150,6 @@ namespace SearchAlgorithm
         /// <param name="matrix">2d array representation of the maze</param>
         public void DisplayShortestPath(string[,] matrix)
         {
-            Path.Reverse();
-
             string shortestPath = "";
             int i = 0;
             foreach (var p in Path)
@@ -174,39 +169,123 @@ namespace SearchAlgorithm
         }
 
         /// <summary>
-        /// Displays the maze showing the shortest path
+        /// Displays the maze
         /// </summary>
         /// <param name="matrix">2d array representation of the maze</param>
         public void DisplayMaze(string[,] matrix)
         {
-            string[,] pathMatrix = new string[matrix.GetLength(0), matrix.GetLength(1)];
-            foreach (var p in Path)
-            {
-                pathMatrix[p.x, p.y] = "-";
-            }
+            Console.WriteLine("\n\t\t\tGiven Maze\n");
 
             for (int x = 0; x < matrix.GetLength(0); x += 1)
             {
                 for (int y = 0; y < matrix.GetLength(1); y += 1)
                 {
-                    if (pathMatrix[x, y] == "-")
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    else
-                        Console.ResetColor();
-
                     int indexS = matrix[x, y].IndexOf("S");
                     int indexG = matrix[x, y].IndexOf("G");
-
-                    if (indexS != -1 || indexG != -1)
-                        Console.ForegroundColor = ConsoleColor.Cyan;
 
                     if (matrix[x, y] == "▅")
                     {
                         Console.OutputEncoding = System.Text.Encoding.Unicode;
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
+                    else
+                        Console.ResetColor();
+
+                    if (indexS != -1 || indexG != -1)
+                        Console.ForegroundColor = ConsoleColor.Cyan;
 
                     Console.Write("\t" + matrix[x, y]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Displays maze showing the shortest path
+        /// </summary>
+        /// <param name="matrix">2d array representation of the maze</param>
+        public void DisplayPathMaze(string[,] matrix)
+        {
+            Console.WriteLine("\n\t\tMaze with shortest path\n");
+
+            string[,] pathMatrix = new string[matrix.GetLength(0), matrix.GetLength(1)];
+
+            for (int x = 0; x < pathMatrix.GetLength(0); x += 1)
+            {
+                for (int y = 0; y < pathMatrix.GetLength(1); y += 1)
+                {
+                    pathMatrix[x,y] = matrix[x, y];
+                }
+            }
+
+            Path.Reverse();
+
+            for(int i = 1; i < Path.Count(); i++)
+            {
+                Point curr = Path[i-1];
+                Point next = Path[i];
+
+                int indexS = pathMatrix[curr.x, curr.y].IndexOf("S");
+                if (indexS != -1)
+                    continue;
+
+                if (next.x - curr.x < 0)
+                {
+                    if(i == Path.Count() - 1) { }
+                        pathMatrix[next.x, next.y] = "↑";
+    
+                    pathMatrix[curr.x, curr.y] = "↑";
+                }
+                if (next.x - curr.x > 0)
+                {
+                    if (i == Path.Count() - 1)
+                        pathMatrix[next.x, next.y] = "↓";
+             
+                    pathMatrix[curr.x, curr.y] = "↓";
+                }
+                if (next.y - curr.y < 0)
+                {
+                    if (i == Path.Count() - 1)
+                        pathMatrix[next.x, next.y] = "←";
+               
+                    pathMatrix[curr.x, curr.y] = "←";
+                }
+                if (next.y - curr.y > 0) 
+                {
+                    if (i == Path.Count() - 1)
+                        pathMatrix[next.x, next.y] = "→";
+         
+                     pathMatrix[curr.x, curr.y] = "→";
+                }
+            }
+
+            for (int x = 0; x < pathMatrix.GetLength(0); x += 1)
+            {
+                for (int y = 0; y < pathMatrix.GetLength(1); y += 1)
+                {
+
+                    int indexS = pathMatrix[x, y].IndexOf("S");
+                    int indexG = pathMatrix[x, y].IndexOf("G");
+
+                    if (pathMatrix[x, y] == "↑" ||
+                        pathMatrix[x, y] == "↓" ||
+                        pathMatrix[x, y] == "←" ||
+                        pathMatrix[x, y] == "→")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else
+                        Console.ResetColor();
+
+                    if (indexS != -1 || indexG != -1)
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+
+                    if (pathMatrix[x, y] == "▅")
+                    {
+                        Console.OutputEncoding = System.Text.Encoding.Unicode;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    Console.Write("\t" + pathMatrix[x, y]);
                 }
                 Console.WriteLine();
             }
