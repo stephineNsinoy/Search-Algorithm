@@ -172,5 +172,44 @@ namespace SearchAlgorithm
             Console.WriteLine("\nPATH: \n" + shortestPath);
             Console.ResetColor();
         }
+
+        /// <summary>
+        /// Displays the maze showing the shortest path
+        /// </summary>
+        /// <param name="matrix">2d array representation of the maze</param>
+        public void DisplayMaze(string[,] matrix)
+        {
+            string[,] pathMatrix = new string[matrix.GetLength(0), matrix.GetLength(1)];
+            foreach (var p in Path)
+            {
+                pathMatrix[p.x, p.y] = "-";
+            }
+
+            for (int x = 0; x < matrix.GetLength(0); x += 1)
+            {
+                for (int y = 0; y < matrix.GetLength(1); y += 1)
+                {
+                    if (pathMatrix[x, y] == "-")
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    else
+                        Console.ResetColor();
+
+                    int indexS = matrix[x, y].IndexOf("S");
+                    int indexG = matrix[x, y].IndexOf("G");
+
+                    if (indexS != -1 || indexG != -1)
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+
+                    if (matrix[x, y] == "▅")
+                    {
+                        Console.OutputEncoding = System.Text.Encoding.Unicode;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+
+                    Console.Write("\t" + matrix[x, y]);
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
