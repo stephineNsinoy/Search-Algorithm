@@ -72,5 +72,64 @@ namespace SearchAlgorithm
             DisplayMaze(matrix);
             return -1;
         }
+
+        /// <summary>
+        /// Locates neighbors of current point (UP,DOWN,RIGHT,LEFT) neigbhors
+        /// </summary>
+        /// <param name="current"> current point(x,y) of matrix with distance</param>
+        /// <param name="numOfRows">Number of rows of the matrix</param>
+        /// <param name="numOfColumns">Number of columns of the matrix</param>
+        /// <param name="matrix">2d array string matrix (maze)</param>
+        /// <param name="visited">2d array bool matrix with visited points</param>
+        /// <returns>List of Point(neighbors)</returns>
+        private List<Point> FindNeighbors(Point current, int numOfRows, int numOfColumns, string[,] matrix, bool[,] visited)
+        {
+
+            List<Point> neighbors = new List<Point>();
+            Point node;
+            
+            // UP
+            if ((current.x - 1 >= 0 && current.x - 1 < numOfRows) && 
+                !visited[current.x - 1, current.y] && 
+                matrix[current.x - 1,current.y] != "▅")
+            {
+                node = new Point(current.x - 1, current.y, current.shortestPathDistance + 1);
+                neighbors.Add(node);
+                previous.Add(node, current);
+            }
+
+            // DOWN
+            if ((current.x + 1 >= 0 && current.x + 1 < numOfRows) && 
+                !visited[current.x + 1, current.y] && 
+                matrix[current.x + 1,current.y] != "▅")
+            {
+                node = (new Point(current.x + 1, current.y, current.shortestPathDistance + 1));
+                neighbors.Add(node);
+                previous.Add(node, current);
+            }
+
+            // RIGHT
+            if ((current.y + 1 >= 0 && current.y + 1 < numOfColumns) &&
+                !visited[current.x, current.y + 1] &&
+                matrix[current.x, current.y + 1] != "▅")
+            {
+                node = new Point(current.x, current.y + 1, current.shortestPathDistance + 1);
+                neighbors.Add(node);
+                previous.Add(node, current);
+            }
+
+            // LEFT
+            if ((current.y - 1 >= 0 && current.y - 1 < numOfColumns) && 
+                !visited[current.x, current.y - 1] && 
+                matrix[current.x,current.y - 1] != "▅")
+            {
+                node = new Point(current.x, current.y - 1, current.shortestPathDistance + 1);
+                neighbors.Add(node);
+                previous.Add(node, current);
+            }
+
+            return neighbors;
+        }
+    
     }
 }
