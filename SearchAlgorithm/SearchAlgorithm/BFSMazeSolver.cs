@@ -8,7 +8,7 @@
         public List<Point> path = new List<Point>();
 
         /// <summary>
-        /// Stores state and origin for backtracking from the goal back to the starting point with the shortest path
+        /// Stores state and origin for backtracking from the goal back to the starting point for the shortest path
         /// </summary>
         private Dictionary<Point, Point> previous = new Dictionary<Point, Point>();
 
